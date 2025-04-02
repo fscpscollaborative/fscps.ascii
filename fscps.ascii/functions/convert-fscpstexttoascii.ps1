@@ -106,7 +106,9 @@ function Convert-FSCPSTextToAscii {
         $outputLines.Add($rowBuilder)
     }
 
-    $outputLines.RemoveAt($outputLines.Count - 1)  # Remove last line of whitespace
+    if($outputLines[-1].Replace(" ", "").Length -eq 0) {
+        $outputLines.RemoveAt($outputLines.Count - 1)  # Remove last line of whitespace
+    }
 
     # Determine max line length
     $maxLen = ($outputLines | ForEach-Object { $_.Length } | Measure-Object -Maximum).Maximum
@@ -114,26 +116,35 @@ function Convert-FSCPSTextToAscii {
     # Calculate the total width of the content including side borders
     $totalWidth = $maxLen
     
-    # Repeat spacer patterns to match the required total width
-    $topBorder = $border.TopSpacer * ([math]::Ceiling($totalWidth / $border.TopSpacer.Length))
-    $topBorder = $topBorder.Substring(0, $topBorder.Length)  # Trim to exact length
-    
-    $bottomBorder = $border.BottomSpacer * [math]::Ceiling($totalWidth / $border.BottomSpacer.Length)
-    $bottomBorder = $bottomBorder.Substring(0, $bottomBorder.Length)  # Trim to exact length
-    
-    # Draw top border
-    $topBorderLine = $border.TopLeft + $topBorder + $border.TopRight
-    Write-Output ($topBorderLine)
-    
-    
-    # Draw lines, padding each to the max length
-    foreach ($line in $outputLines) {
-        $curLineLenght = $line.Length + $border.LeftSpacer.Length + $border.RightSpacer.Length 
-        $curAdvDifference = ($topBorderLine.Length - ($curLineLenght))
-        $padded = $line.PadRight($maxLen + $curAdvDifference)
-        Write-Output ("$($border.LeftSpacer)$padded$($border.RightSpacer)")
+    if($BorderType -ne [BorderType]::None) {
+        # Repeat spacer patterns to match the required total width
+        $topBorder = $border.TopSpacer * ([math]::Ceiling($totalWidth / $border.TopSpacer.Length))
+        $topBorder = $topBorder.Substring(0, $topBorder.Length)  # Trim to exact length
+        
+        $bottomBorder = $border.BottomSpacer * [math]::Ceiling($totalWidth / $border.BottomSpacer.Length)
+        $bottomBorder = $bottomBorder.Substring(0, $bottomBorder.Length)  # Trim to exact length
+        
+        # Draw top border
+        $topBorderLine = $border.TopLeft + $topBorder + $border.TopRight
+        Write-Output ($topBorderLine)
+        
+        
+        # Draw lines, padding each to the max length
+        foreach ($line in $outputLines) {
+            $curLineLenght = $line.Length + $border.LeftSpacer.Length + $border.RightSpacer.Length 
+            $curAdvDifference = ($topBorderLine.Length - ($curLineLenght))
+            $padded = $line.PadRight($maxLen + $curAdvDifference)
+            Write-Output ("$($border.LeftSpacer)$padded$($border.RightSpacer)")
+        }
+        
+        # Draw bottom border
+        Write-Output ($border.BottomLeft + $bottomBorder + $border.BottomRight)
+    }
+    else {
+        # Draw lines without borders
+        foreach ($line in $outputLines) {
+            Write-Output ($line)
+        }
     }
     
-    # Draw bottom border
-    Write-Output ($border.BottomLeft + $bottomBorder + $border.BottomRight)
 }
