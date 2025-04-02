@@ -43,7 +43,7 @@ function Convert-FSCPSTextToAscii {
         [string]$Text,
 
         [Parameter(Mandatory=$true)]
-        [string]$Font,
+        [FontType]$Font,
     
         [Parameter(Mandatory=$false)]
         [BorderType]$BorderType = [BorderType]::None
@@ -51,7 +51,7 @@ function Convert-FSCPSTextToAscii {
 
     $border = Get-BorderSymbol -BorderType $BorderType
 
-    $fontDirectory = "$ModuleRoot\fscps.ascii\internal\misc\Fonts"
+    $fontDirectory = "$ModuleRoot\internal\misc\Fonts"
     $fontFilePath = Join-Path $fontDirectory "$Font.flf"
     
 

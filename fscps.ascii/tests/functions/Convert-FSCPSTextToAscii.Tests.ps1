@@ -27,7 +27,7 @@
 		It 'Should have the expected parameter Font' {
 			$parameter = (Get-Command Convert-FSCPSTextToAscii).Parameters['Font']
 			$parameter.Name | Should -Be 'Font'
-			$parameter.ParameterType.ToString() | Should -Be System.String
+			$parameter.ParameterType.ToString() | Should -Be FontType
 			$parameter.IsDynamic | Should -Be $False
 			$parameter.ParameterSets.Keys | Should -Be '__AllParameterSets'
 			$parameter.ParameterSets.Keys | Should -Contain '__AllParameterSets'
