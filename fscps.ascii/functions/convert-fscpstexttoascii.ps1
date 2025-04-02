@@ -93,9 +93,23 @@ function Convert-FSCPSTextToAscii {
             $charCode = [int][char]$c
             if ($charMap.ContainsKey($charCode)) {
                 $rowText = $charMap[$charCode][$row]
-                # Remove trailing '@' or '$'
-                $rowText = $rowText -replace "\$", " "  # remove all '$'
-                $rowText = $rowText -replace "[@]+$", ""  # remove trailing
+                # Logic to handle '@' replacements
+                if ($rowText -eq "@") {
+                    # Replace single '@' with a space if the string contains only '@'
+                    $rowText = " "
+                } elseif ($rowText.EndsWith("@")) {
+                    # Remove trailing '@' if the string ends with '@'
+                    $rowText = $rowText.TrimEnd("@")
+                }
+
+                # Logic to handle '$' replacements
+                if ($rowText -eq "$") {
+                    # Replace single '$' with a space if the string contains only '$'
+                    $rowText = " "
+                } elseif ($rowText.EndsWith("$")) {
+                    # Remove trailing '$' if the string ends with '$'
+                    $rowText = $rowText.TrimEnd("$")
+                }
                 $rowBuilder += $rowText
             }
             else {
@@ -126,7 +140,8 @@ function Convert-FSCPSTextToAscii {
         
         # Draw top border
         $topBorderLine = $border.TopLeft + $topBorder + $border.TopRight
-        Write-Output ($topBorderLine)
+        Write-PSFMessage -Level Important -Message ($topBorderLine)
+        
         
         
         # Draw lines, padding each to the max length
@@ -134,16 +149,16 @@ function Convert-FSCPSTextToAscii {
             $curLineLenght = $line.Length + $border.LeftSpacer.Length + $border.RightSpacer.Length 
             $curAdvDifference = ($topBorderLine.Length - ($curLineLenght))
             $padded = $line.PadRight($maxLen + $curAdvDifference)
-            Write-Output ("$($border.LeftSpacer)$padded$($border.RightSpacer)")
+            Write-PSFMessage -Level Important -Message ("$($border.LeftSpacer)$padded$($border.RightSpacer)")
         }
         
         # Draw bottom border
-        Write-Output ($border.BottomLeft + $bottomBorder + $border.BottomRight)
+        Write-PSFMessage -Level Important -Message  ($border.BottomLeft + $bottomBorder + $border.BottomRight)
     }
     else {
         # Draw lines without borders
         foreach ($line in $outputLines) {
-            Write-Output ($line)
+            Write-PSFMessage -Level Important -Message  ($line)
         }
     }
     
