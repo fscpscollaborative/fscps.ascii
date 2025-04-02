@@ -1,5 +1,6 @@
 function Get-BorderSymbols {
     [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
     param (
         [Parameter(Mandatory = $true)]
         [BorderType] # Use the enum for validation

@@ -123,7 +123,7 @@ function Convert-FSCPSTextToAscii {
     
     # Draw top border
     $topBorderLine = $border.TopLeft + $topBorder + $border.TopRight
-    Write-Host ($topBorderLine)
+    Write-Output ($topBorderLine)
     
     
     # Draw lines, padding each to the max length
@@ -131,9 +131,9 @@ function Convert-FSCPSTextToAscii {
         $curLineLenght = $line.Length + $border.LeftSpacer.Length + $border.RightSpacer.Length 
         $curAdvDifference = ($topBorderLine.Length - ($curLineLenght))
         $padded = $line.PadRight($maxLen + $curAdvDifference)
-        Write-Host ("$($border.LeftSpacer)$padded$($border.RightSpacer)")
+        Write-Output ("$($border.LeftSpacer)$padded$($border.RightSpacer)")
     }
     
     # Draw bottom border
-    Write-Host ($border.BottomLeft + $bottomBorder + $border.BottomRight)
+    Write-Output ($border.BottomLeft + $bottomBorder + $border.BottomRight)
 }
