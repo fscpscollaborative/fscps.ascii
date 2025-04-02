@@ -28,10 +28,10 @@
         PS C:\> Convert-FSCPSTextToAscii -Text "World" -Font "Slant"
         
         Converts the text "World" into ASCII art using the "Slant" font without any border.
-
+        
     .NOTES
         Tags: Configuration, Azure, Storage
-
+        
         Author: Oleksandr Nikolaiev (@onikolaiev)
         
 #>
@@ -49,7 +49,7 @@ function Convert-FSCPSTextToAscii {
         [BorderType]$BorderType = [BorderType]::None
     )
 
-    $border = Get-BorderSymbols -BorderType $BorderType
+    $border = Get-BorderSymbol -BorderType $BorderType
 
     $fontDirectory = "\fscps.tools\internal\misc\Fonts"
     $fontFilePath = Join-Path $fontDirectory "$Font.flf"
