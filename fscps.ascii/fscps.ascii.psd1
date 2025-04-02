@@ -25,7 +25,7 @@ Copyright = '2025 (c) Oleksandr Nikolaiev. All rights reserved.'
 Description = 'ASCII Art tools'
 
 # Minimum version of the PowerShell engine required by this module
-# PowerShellVersion = ''
+PowerShellVersion = '5.0'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -89,16 +89,16 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = 'd365fsc','Dynamics365','D365','Dynamics365FO','fscps','ascii'
 
         # A URL to the license for this module.
-        # LicenseUri = ''
+        LicenseUri = 'https://opensource.org/license/mit'
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://github.com/fscpscollaborative/fscps.ascii'
 
         # A URL to an icon representing this module.
-        # IconUri = ''
+        IconUri = 'https://raw.githubusercontent.com/fscpscollaborative/fscps.ascii/master/images/fscps-ascii-logo.png'
 
         # ReleaseNotes of this module
         # ReleaseNotes = ''
@@ -110,11 +110,11 @@ PrivateData = @{
         # RequireLicenseAcceptance = $false
 
         # External dependent modules of this module
-        # ExternalModuleDependencies = @()
+        ExternalModuleDependencies = @('PSDiagnostics')
 
     } # End of PSData hashtable
 
-} # End of PrivateData hashtable
+ } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
 # HelpInfoURI = ''
