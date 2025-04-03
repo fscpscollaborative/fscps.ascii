@@ -122,7 +122,7 @@ Convert-FSCPSTextToAscii -Text "Dots Border" -Font "Standard" -BorderType Dots -
 
 ![Example_5](images/screenshots/example_5.png)
 
-### Example 6: ASCII Art with Timestamp and Function Name
+### Example 6: ASCII Art with Timestamp
 - **Description**: Converts the text "Timestamp Example" into ASCII art using the "Standard" font, surrounds it with a box border, and enables detailed information (timestamp) in the output.
 ```powershell
 Convert-FSCPSTextToAscii -Text "Timestamp Example" -Font "Standard" -BorderType Box -Timestamp
