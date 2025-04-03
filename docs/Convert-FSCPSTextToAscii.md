@@ -8,35 +8,35 @@ schema: 2.0.0
 # Convert-FSCPSTextToAscii
 
 ## SYNOPSIS
-Converts a given text to ASCII art using a specified font and optional border style.
+Converts a given text to ASCII art using a specified font and optional border style with color support.
 
 ## SYNTAX
 
 ```
 Convert-FSCPSTextToAscii [-Text] <String> [-Font] <FontType> [[-BorderType] <BorderType>]
- [-ProgressAction <ActionPreference>] [<CommonParameters>]
+ [[-TextColor] <String>] [[-BorderColor] <String>] [-Timestamp] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 The Convert-FSCPSTextToAscii function takes a string input and converts it into ASCII art using the specified font.
+Optionally, a border style and colors for the text and border can be applied.
+The function supports various fonts
+and border styles, allowing for customization of the output.
+The text and border colors can also be specified
+to enhance the visual appearance of the ASCII art.
 
-Optionally, a border style can be applied around the ASCII art, such as asterisks, hashes, or other symbols.
+This function is ideal for creating visually appealing text banners or decorations in scripts, logs, or console outputs.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Convert-FSCPSTextToAscii -Text "Hello" -Font "Standard" -BorderType Asterisk
+Convert-FSCPSTextToAscii -Text "Hello" -Font "Standard" -BorderType Asterisk -TextColor Yellow -BorderColor Green -DetailedInfo $true
 ```
 
-Converts the text "Hello" into ASCII art using the "Standard" font and surrounds it with an asterisk border.
-
-### EXAMPLE 2
-```
-Convert-FSCPSTextToAscii -Text "World" -Font "Slant"
-```
-
-Converts the text "World" into ASCII art using the "Slant" font without any border.
+Converts the text "Hello" into ASCII art using the "Standard" font, surrounds it with an asterisk border, and applies yellow text with a green border.
+Detailed information (timestamp and function name) is enabled.
 
 ## PARAMETERS
 
@@ -77,8 +77,6 @@ Accept wildcard characters: False
 The type of border to apply around the ASCII art.
 This parameter is optional and defaults to 'None'.
 
-Supported values include 'Asterisk', 'Hash', and 'Plus'.
-
 ```yaml
 Type: BorderType
 Parameter Sets: (All)
@@ -88,6 +86,54 @@ Accepted values: None, Asterisk, Hash, Box, TwoLinesFrame, BoxBorder, DoubleBox,
 Required: False
 Position: 3
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TextColor
+The color to use for the ASCII art text.
+This parameter is optional and defaults to 'White'.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 4
+Default value: White
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -BorderColor
+The color to use for the border.
+This parameter is optional and defaults to 'Gray'.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 5
+Default value: Gray
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Timestamp
+Enables or disables detailed information (timestamp) in the output.
+Defaults to \`$false\`.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -115,8 +161,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-Tags: Configuration, Azure, Storage
-
 Author: Oleksandr Nikolaiev (@onikolaiev)
 
 ## RELATED LINKS

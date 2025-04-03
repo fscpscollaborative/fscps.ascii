@@ -1,3 +1,4 @@
+
 <#
     .SYNOPSIS
         Converts a given text to ASCII art using a specified font and optional border style with color support.
@@ -7,9 +8,9 @@
         Optionally, a border style and colors for the text and border can be applied. The function supports various fonts
         and border styles, allowing for customization of the output. The text and border colors can also be specified
         to enhance the visual appearance of the ASCII art.
-
+        
         This function is ideal for creating visually appealing text banners or decorations in scripts, logs, or console outputs.
-
+        
     .PARAMETER Text
         The text to be converted into ASCII art. This parameter is mandatory.
         
@@ -24,14 +25,17 @@
         
     .PARAMETER BorderColor
         The color to use for the border. This parameter is optional and defaults to 'Gray'.
-
+        
     .PARAMETER Timestamp
         Enables or disables detailed information (timestamp) in the output. Defaults to `$false`.
-
+        
     .EXAMPLE
         PS C:\> Convert-FSCPSTextToAscii -Text "Hello" -Font "Standard" -BorderType Asterisk -TextColor Yellow -BorderColor Green -DetailedInfo $true
         
         Converts the text "Hello" into ASCII art using the "Standard" font, surrounds it with an asterisk border, and applies yellow text with a green border. Detailed information (timestamp and function name) is enabled.
+    .NOTES
+        
+        Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Convert-FSCPSTextToAscii {
     [CmdletBinding()]
