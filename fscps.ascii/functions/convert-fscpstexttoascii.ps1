@@ -45,7 +45,7 @@ function Convert-FSCPSTextToAscii {
         [string]$Text,
 
         [Parameter(Mandatory=$true)]
-        [FontType]$Font,
+        [string]$Font,
     
         [Parameter(Mandatory=$false)]
         [BorderType]$BorderType = [BorderType]::None,
@@ -59,7 +59,31 @@ function Convert-FSCPSTextToAscii {
         [string]$BorderColor = "Gray",
 
         [Parameter(Mandatory=$false)]
-        [switch]$Timestamp = $false
+        [switch]$Timestamp,
+
+        [Parameter(Mandatory=$false)]
+        [LayoutType]$VerticalLayout = [LayoutType]::Default,
+
+        [Parameter(Mandatory=$false)]
+        [LayoutType]$HorizontalLayout = [LayoutType]::Default,
+        [Parameter(Mandatory=$false)]
+        [switch]$ShowHardBlanks,
+
+        [Parameter(Mandatory=$false)]
+        [switch]$WhitespaceBreak,
+
+        [Parameter(Mandatory=$false)]
+        [int]$ScreenWigth = 100,
+
+        [Parameter(Mandatory=$false)]
+        [switch]$PrintDirection,
+
+        [Parameter(Mandatory=$false)]
+        [string]$OutputColorVariable,
+
+        [Parameter(Mandatory=$false)]
+        [string]$OutputNoColorVariable
+
     )
     begin {
         Invoke-TimeSignal -Start
@@ -79,82 +103,41 @@ function Convert-FSCPSTextToAscii {
 
         $border = Get-BorderSymbol -BorderType $BorderType
 
-        $fontDirectory = "$ModuleRoot\internal\misc\Fonts"
-        $fontFilePath = Join-Path $fontDirectory "$Font.flf"
-        
-        # Load .flf file lines
-        $flfLines = (Get-Content -Path $fontFilePath -Raw -ErrorAction Stop -Encoding UTF8) -split "`r?`n"
-    
-        # Parse metadata from the first line
-        $headerParts = $flfLines[0].Split(' ')
-        $charHeight  = [int]$headerParts[1]
-        $commentLines= [int]$headerParts[5]
-    
-        # Skip header + comment lines
-        $startIndex = 1 + $commentLines
-    
-        # Build a dictionary of ASCII art for each printable character
-        $charMap = @{ }
-        $asciiCode = 32  # Start from space (ASCII 32)
+        $_printDirection = 0
+
+        if($PrintDirection) {
+            $_printDirection = 1
+        }
+
     }
     PROCESS {
 
-        $linePos = $startIndex
-        while ($linePos -lt $flfLines.Count) {
-            $charLines = @()
-            for ($i = 0; $i -lt $charHeight; $i++) {
-                if ($linePos -ge $flfLines.Count) { break }
-                $charLines += $flfLines[$linePos]
-                $linePos++
-            }
-            $charMap[$asciiCode] = $charLines
-            $asciiCode++
-    
-            # Stop if we've passed typical ASCII printable range
-            if ($asciiCode -gt 126) { break }
+
+        $options = @{
+            font ="$Font"
+            showHardBlanks = $ShowHardBlanks
+            whitespaceBreak = $WhitespaceBreak
+            verticalLayout = $VerticalLayout
+            horizontalLayout = $HorizontalLayout
+            width = $ScreenWigth
+            printDirection = $_printDirection
         }
-    
-        # Generate ASCII art lines for input text
+        # Call the function
         $outputLines = New-Object System.Collections.Generic.List[string]
-        for ($row = 0; $row -lt $charHeight; $row++) {
-            $rowBuilder = " "
-            foreach ($c in $Text.ToCharArray()) {
-                $charCode = [int][char]$c
-                if ($charMap.ContainsKey($charCode)) {
-                    $rowText = $charMap[$charCode][$row]
-                    # Logic to handle '@' replacements
-                    if ($rowText -eq "@") {
-                        $rowText = " "
-                    } elseif ($rowText.EndsWith("@")) {
-                        $rowText = $rowText.TrimEnd("@")
-                    }
-    
-                    # Logic to handle '$' replacements
-                    if ($rowText -eq "$") {
-                        $rowText = " "
-                    } elseif ($rowText.EndsWith("$")) {
-                        $rowText = $rowText.TrimEnd("$")
-                    }
-                    $rowBuilder += $rowText
-                }
-                else {
-                    $rowBuilder += "?"  # fallback if not in font map
-                }
-            }
-            $rowBuilder += " "
-            $outputLines.Add($rowBuilder)
+        $resultColorLines = New-Object System.Collections.Generic.List[string]
+        $resultNoColorLines = New-Object System.Collections.Generic.List[string]
+        $null = (Get-FontMetadata -fontName $Font) 
+        $arrayLines = (Text-Sync -txt $Text -options $options)
+        foreach ($line in $arrayLines) {
+            $outputLines.Add($line.TrimEnd())
         }
-    
-        if ($outputLines[-1].Replace(" ", "").Length -eq 0) {
-            $outputLines.RemoveAt($outputLines.Count - 1)  # Remove last line of whitespace
-        }
-    
+        $outputLines = $outputLines -split "`n"
+
         # Determine max line length
         $maxLen = ($outputLines | ForEach-Object { $_.Length } | Measure-Object -Maximum).Maximum
         
         # Calculate the total width of the content including side borders
         $totalWidth = $maxLen
-        
         if ($BorderType -ne [BorderType]::None) {
             # Repeat spacer patterns to match the required total width
             $topBorder = $border.TopSpacer * ([math]::Ceiling($totalWidth / $border.TopSpacer.Length))
@@ -165,18 +148,29 @@ function Convert-FSCPSTextToAscii {
             
             # Draw top border
             $topBorderLine = $border.TopLeft + $topBorder + $border.TopRight
-            Write-PSFMessage -Level Important -Message ('<c="'+$BorderColor.ToLower()+'">' + $topBorderLine + "</c>")
-            
+            $topBorderMessageColor = ('<c="'+$BorderColor.ToLower()+'">' + $topBorderLine + "</c>")
+            $topBorderMessageNoColor = ($topBorderLine)
+            $resultColorLines.Add($topBorderMessageColor)
+            $resultNoColorLines.Add($topBorderMessageNoColor)
+            Write-PSFMessage -Level Important -Message $topBorderMessageColor
             # Draw lines, padding each to the max length
             foreach ($line in $outputLines) {
                 $curLineLength = $line.Length + $border.LeftSpacer.Length + $border.RightSpacer.Length 
                 $curAdvDifference = ($topBorderLine.Length - ($curLineLength))
-                $padded = $line.PadRight($maxLen + $curAdvDifference)
-                Write-PSFMessage -Level Important -Message ('<c="'+$BorderColor.ToLower()+'">' + "$($border.LeftSpacer)" + "</c>" + '<c="'+$TextColor.ToLower()+'">' + $padded +"</c>" + '<c="'+$BorderColor.ToLower()+'">' + "$($border.RightSpacer)" + "</c>")
+                $padded = $line.PadRight($line.Length + $curAdvDifference)
+                $centerMessageColor = ('<c="'+$BorderColor.ToLower()+'">' + $border.LeftSpacer + "</c>" + '<c="'+$TextColor.ToLower()+'">' + $padded +"</c>" + '<c="'+$BorderColor.ToLower()+'">' + $border.RightSpacer + "</c>")
+                $centerMessageNoColor = ($border.LeftSpacer + $padded + $border.RightSpacer)
+                $resultColorLines.Add($centerMessageColor)
+                $resultNoColorLines.Add($centerMessageNoColor)
+                Write-PSFMessage -Level Important -Message $centerMessageColor
             }
             
             # Draw bottom border
-            Write-PSFMessage -Level Host -Message  ('<c="'+$BorderColor.ToLower()+'">' + $border.BottomLeft + $bottomBorder + $border.BottomRight  + "</c>")
+            $bottomBorderMessageColor = ('<c="'+$BorderColor.ToLower()+'">' + $border.BottomLeft + $bottomBorder + $border.BottomRight  + "</c>")
+            $bottomBorderMessageNoColor = ($border.BottomLeft + $bottomBorder + $border.BottomRight)
+            $resultColorLines.Add($bottomBorderMessageColor)
+            $resultNoColorLines.Add($bottomBorderMessageNoColor)
+            Write-PSFMessage -Level Host -Message $bottomBorderMessageColor
         }
         else {
             # Draw lines without borders
@@ -184,6 +178,13 @@ function Convert-FSCPSTextToAscii {
                 Write-PSFMessage -Level Host -Message  ('<c="'+$TextColor.ToLower()+'">' + $line + "</c>") 
             }
         }    
+        # If the custom output variable is provided, set its value
+        if ($PSBoundParameters.ContainsKey('OutputNoColorVariable') -and $OutputNoColorVariable) {
+            Set-Variable -Name $OutputNoColorVariable -Value $resultNoColorLines -Scope 1
+        }
+        if ($PSBoundParameters.ContainsKey('OutputColorVariable') -and $OutputColorVariable) {
+            Set-Variable -Name $OutputColorVariable -Value $resultColorLines -Scope 1
+        }
     }
     END {
         # Restore the original state of the PSFramework message style settings
