@@ -153,7 +153,7 @@ Convert-FSCPSTextToAscii -Text "Hello, World!" -Font "3x5" -BorderType DoubleBox
 ```powershell
 Convert-FSCPSTextToAscii -Text "Hello, World!" -Font "3x5" -BorderType DoubleBox -TextColor Cyan -BorderColor Yellow -HorizontalLayout Full -VerticalLayout Full -ScreenWigth 150 
 ```
-```
+
 <span style="color: yellow;">╔════════════════════════════════════════════════════╗</span>
 <span style="color: yellow;">║</span><span style="color: cyan;">                                                    </span><span style="color: yellow;">║</span>
 <span style="color: yellow;">║</span><span style="color: cyan;"># #      #   #              # #          #    #  #  </span><span style="color: yellow;">║</span>
@@ -162,7 +162,7 @@ Convert-FSCPSTextToAscii -Text "Hello, World!" -Font "3x5" -BorderType DoubleBox
 <span style="color: yellow;">║</span><span style="color: cyan;"># # ###  ##  ## ###  #      ### ### #    ## ###     </span><span style="color: yellow;">║</span>
 <span style="color: yellow;">║</span><span style="color: cyan;"># #                 #       # #                  #  </span><span style="color: yellow;">║</span>
 <span style="color: yellow;">╚════════════════════════════════════════════════════╝</span>
-```
+
 ## 4Max
 ```powershell
 Convert-FSCPSTextToAscii -Text "Hello, World!" -Font "4Max" -BorderType DoubleBox -TextColor Cyan -BorderColor Yellow -ScreenWigth 150 
