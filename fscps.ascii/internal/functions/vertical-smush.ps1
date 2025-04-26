@@ -14,7 +14,7 @@ function Vertical-Smush {
 
     # Split the input arrays into pieces
     $piece1 = $lines1[0..([math]::Max(0, $len1 - $overlap - 1))]
-    $piece2_1 = $lines1[([math]::Max(0, $len1 - $overlap))..($len1)]
+    $piece2_1 = $lines1[([math]::Max(0, $len1 - $overlap -1))..($len1)]
     $piece2_2 = $lines2[0..([math]::Min($overlap, $len2))]
 
     # Initialize variables

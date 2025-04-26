@@ -17,7 +17,6 @@ function Generate-Text {
         
         $figLines += Generate-FigTextLines -txt $line -figChars $Script:FigFonts[$fontName] -opts $options
     }
-
     # Combine the FIGlet lines vertically
     $output = $figLines[0]
     for ($ii = 1; $ii -lt $figLines.Count; $ii++) {
