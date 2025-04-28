@@ -30,7 +30,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Parse-Font {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [string]$FontName, # Name of the font
         [string]$FontData      # Data from the FIGlet font file

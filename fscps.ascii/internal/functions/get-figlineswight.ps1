@@ -27,7 +27,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Get-FigLinesWidth {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [string[]]$textLines # Array of lines for text
     )

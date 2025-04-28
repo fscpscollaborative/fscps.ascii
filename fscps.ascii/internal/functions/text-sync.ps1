@@ -39,7 +39,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Text-Sync {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [string]$txt,          # Input text
         [hashtable]$options    # Options for font and settings

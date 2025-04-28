@@ -62,7 +62,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Horizontal-Smush {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [string[]]$textBlock1,  # First text block
         [string[]]$textBlock2,  # Second text block

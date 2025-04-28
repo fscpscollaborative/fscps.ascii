@@ -41,7 +41,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function vRule2-Smush {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [string]$ch1,
         [string]$ch2

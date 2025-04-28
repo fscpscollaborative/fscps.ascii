@@ -37,7 +37,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Get-BorderSymbol {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
     param (

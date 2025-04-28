@@ -28,7 +28,8 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Get-FontMetadata {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns','')]
     param (
         [string]$fontName,          # Name of the font
         [ScriptBlock]$next = $null # Optional callback function

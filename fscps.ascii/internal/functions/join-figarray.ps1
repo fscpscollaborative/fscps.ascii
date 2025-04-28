@@ -46,7 +46,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Join-FigArray {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [array]$array, # Array of ASCII words or single characters: {fig: array, overlap: number}
         [int]$len,     # Height of the characters (number of rows)

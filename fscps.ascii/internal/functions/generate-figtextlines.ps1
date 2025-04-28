@@ -57,7 +57,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Generate-FigTextLines {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [string]$txt,          # Input text
         [hashtable]$figChars,  # FIGlet characters

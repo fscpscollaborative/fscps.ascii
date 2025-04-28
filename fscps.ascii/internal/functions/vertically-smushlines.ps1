@@ -44,7 +44,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Vertically-SmushLines {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [string]$line1,  # First line of text
         [string]$line2,  # Second line of text

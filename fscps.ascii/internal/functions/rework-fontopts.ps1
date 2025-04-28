@@ -49,7 +49,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Rework-FontOpts {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [hashtable]$fontOpts,  # Default font options
         [hashtable]$options    # Assigned options to merge with the defaults

@@ -47,7 +47,8 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Smush-VerticalFigLines {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns','')]
     param (
         [string[]]$output,    # First set of lines
         [string[]]$lines,     # Second set of lines

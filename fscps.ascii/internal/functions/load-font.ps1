@@ -26,7 +26,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Load-Font {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [string]$fontName       # Name of the font to load
     )

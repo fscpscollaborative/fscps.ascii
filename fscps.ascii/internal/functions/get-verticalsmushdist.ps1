@@ -45,7 +45,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Get-VerticalSmushDist {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [string[]] $lines1,
         [string[]] $lines2,

@@ -43,7 +43,8 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Get-HorizontalFittingRules {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns','')]
     param (
         [string]$layout,       # Layout type (e.g., [LayoutType]::Default, [LayoutType]::Full, etc.)
         [hashtable]$options    # Options object containing fitting rules

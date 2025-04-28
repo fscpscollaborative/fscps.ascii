@@ -26,7 +26,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Pad-Lines {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [string[]]$lines,     # Array of lines to pad
         [int]$numSpaces       # Number of spaces to pad

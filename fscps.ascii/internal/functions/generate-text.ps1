@@ -42,7 +42,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Generate-Text {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
     param (
         [string]$fontName,   # Font to use
         [hashtable]$options, # Options to override the defaults
