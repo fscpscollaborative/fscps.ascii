@@ -22,6 +22,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function New-FigChar {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
     [OutputType([string[]])]
     param (
         [int]$len # Number of rows

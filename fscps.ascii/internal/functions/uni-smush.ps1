@@ -48,6 +48,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function uni-Smush {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
     param (
         [string]$ch1,
         [string]$ch2,

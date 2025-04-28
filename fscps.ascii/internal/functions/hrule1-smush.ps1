@@ -39,6 +39,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function hRule1-Smush {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
     param (
         [string]$ch1,
         [string]$ch2,

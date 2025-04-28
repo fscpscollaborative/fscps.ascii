@@ -48,6 +48,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Vertical-Smush {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
     param (
         [string[]]$lines1,  # First set of lines
         [string[]]$lines2,  # Second set of lines

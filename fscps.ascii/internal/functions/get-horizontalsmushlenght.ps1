@@ -40,6 +40,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Get-HorizontalSmushLength {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
     param (
         [string]$txt1,          # First text string
         [string]$txt2,          # Second text string

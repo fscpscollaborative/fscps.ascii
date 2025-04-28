@@ -35,6 +35,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Get-SmushingRules {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
     param (
         [int]$oldLayout,
         [int]$newLayout

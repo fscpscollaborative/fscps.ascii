@@ -34,6 +34,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function vRule5-Smush {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
     param (
         [string]$ch1,
         [string]$ch2

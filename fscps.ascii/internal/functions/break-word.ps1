@@ -38,6 +38,7 @@
         the ASCII characters and calculating their widths.
 #>
 function Break-Word {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
     param (
         [array]$figChars, # List of single ASCII characters in form {fig, overlap}
         [int]$len,        # Number of rows

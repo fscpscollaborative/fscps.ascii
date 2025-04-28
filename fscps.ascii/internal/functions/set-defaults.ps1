@@ -36,6 +36,7 @@
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Set-Defaults {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
     param (
         [hashtable]$opts # Hashtable containing properties to override
     )

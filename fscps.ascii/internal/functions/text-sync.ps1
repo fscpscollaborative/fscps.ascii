@@ -37,7 +37,9 @@
         the font and render the ASCII art.
         
         Author: Oleksandr Nikolaiev (@onikolaiev)
-#>function Text-Sync {
+#>
+function Text-Sync {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
     param (
         [string]$txt,          # Input text
         [hashtable]$options    # Options for font and settings
