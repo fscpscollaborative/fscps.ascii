@@ -58,6 +58,7 @@
 #>
 function Generate-FigTextLines {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns','')]
     param (
         [string]$txt,          # Input text
         [hashtable]$figChars,  # FIGlet characters

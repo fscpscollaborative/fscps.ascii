@@ -50,6 +50,7 @@
 #>
 function Rework-FontOpts {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns','')]
     param (
         [hashtable]$fontOpts,  # Default font options
         [hashtable]$options    # Assigned options to merge with the defaults
@@ -59,7 +60,7 @@ function Rework-FontOpts {
     $myOpts = $fontOpts.PSObject.Copy()
 
     # If the user specifies a horizontal layout, override the default font options
-    if ($options.horizontalLayout -ne $null) {
+    if ($options.horizontalLayout) {
         $params = Get-HorizontalFittingRules -layout $options.horizontalLayout -options $fontOpts
         foreach ($prop in $params.Keys) {
             $myOpts.fittingRules[$prop] = $params[$prop]
@@ -67,7 +68,7 @@ function Rework-FontOpts {
     }
 
     # If the user specifies a vertical layout, override the default font options
-    if ($options.verticalLayout -ne $null) {
+    if ($options.verticalLayout) {
         $params = Get-VerticalFittingRules -layout $options.verticalLayout -options $fontOpts
         foreach ($prop in $params.Keys) {
             $myOpts.fittingRules[$prop] = $params[$prop]
@@ -75,9 +76,9 @@ function Rework-FontOpts {
     }
 
     # Set printDirection, showHardBlanks, width, and whitespaceBreak
-    $myOpts.printDirection = if ($options.printDirection -ne $null) { $options.printDirection } else { $fontOpts.printDirection }
+    $myOpts.printDirection = if ($options.printDirection) { $options.printDirection } else { $fontOpts.printDirection }
     $myOpts.showHardBlanks = $options.showHardBlanks -or $false
-    $myOpts.width = if ($options.width -ne $null) { $options.width } else { -1 }
+    $myOpts.width = if ($options.width) { $options.width } else { -1 }
     $myOpts.whitespaceBreak = $options.whitespaceBreak -or $false
 
     return $myOpts

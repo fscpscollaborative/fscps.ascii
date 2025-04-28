@@ -45,6 +45,7 @@
 #>
 function Vertically-SmushLines {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns','')]
     param (
         [string]$line1,  # First line of text
         [string]$line2,  # Second line of text

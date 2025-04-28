@@ -27,6 +27,7 @@
 #>
 function Pad-Lines {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns','')]
     param (
         [string[]]$lines,     # Array of lines to pad
         [int]$numSpaces       # Number of spaces to pad
