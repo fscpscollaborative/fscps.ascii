@@ -1,42 +1,43 @@
+
 <#
     .SYNOPSIS
         Applies Rule 3: Hierarchy Smushing.
-
+        
     .DESCRIPTION
         This function smushes two characters based on their hierarchy class according to Rule 3 of the FIGlet smushing rules.
         A hierarchy of six classes is defined: "|", "/\", "[]", "{}", "()", and "<>". When two smushing characters belong
         to different classes, the character from the latter class in the hierarchy is used.
-
+        
     .PARAMETER ch1
         The first character to evaluate for smushing.
-
+        
     .PARAMETER ch2
         The second character to evaluate for smushing.
-
+        
     .EXAMPLE
         $ch1 = "|"
         $ch2 = ">"
         $result = hRule3-Smush -ch1 $ch1 -ch2 $ch2
-
+        
         This example smushes the characters "|" and ">" and returns ">".
-
+        
     .EXAMPLE
         $ch1 = "("
         $ch2 = "["
         $result = hRule3-Smush -ch1 $ch1 -ch2 $ch2
-
+        
         This example smushes the characters "(" and "[" and returns "[".
-
+        
     .EXAMPLE
         $ch1 = "|"
         $ch2 = "|"
         $result = hRule3-Smush -ch1 $ch1 -ch2 $ch2
-
+        
         This example does not smush the characters "|" and "|" because they belong to the same class and returns `$false`.
-
+        
     .NOTES
         This function implements Rule 3 of the FIGlet smushing rules: Hierarchy Smushing.
-
+        
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function hRule3-Smush {

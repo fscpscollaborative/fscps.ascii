@@ -8,35 +8,45 @@ schema: 2.0.0
 # Convert-FSCPSTextToAscii
 
 ## SYNOPSIS
-Converts a given text to ASCII art using a specified font and optional border style with color support.
+Converts a given text into ASCII art using a specified font and customizable options.
 
 ## SYNTAX
 
 ```
-Convert-FSCPSTextToAscii [-Text] <String> [-Font] <FontType> [[-BorderType] <BorderType>]
- [[-TextColor] <String>] [[-BorderColor] <String>] [-Timestamp] [-ProgressAction <ActionPreference>]
+Convert-FSCPSTextToAscii [-Text] <String> [-Font] <String> [[-BorderType] <BorderType>] [[-TextColor] <String>]
+ [[-BorderColor] <String>] [-Timestamp] [[-VerticalLayout] <LayoutType>] [[-HorizontalLayout] <LayoutType>]
+ [-ShowHardBlanks] [-WhitespaceBreak] [[-ScreenWigth] <Int32>] [-PrintDirection]
+ [[-OutputColorVariable] <String>] [[-OutputNoColorVariable] <String>] [-ProgressAction <ActionPreference>]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Convert-FSCPSTextToAscii function takes a string input and converts it into ASCII art using the specified font.
-Optionally, a border style and colors for the text and border can be applied.
-The function supports various fonts
-and border styles, allowing for customization of the output.
-The text and border colors can also be specified
-to enhance the visual appearance of the ASCII art.
+The Convert-FSCPSTextToAscii function generates ASCII art from the provided text using the specified font.
+It supports optional customization, including border styles, text and border colors, layout types, and additional
+formatting options such as showing hard blanks or breaking lines at whitespace.
+The function is highly configurable
+and can be used to create visually appealing text banners or decorations for console outputs.
 
-This function is ideal for creating visually appealing text banners or decorations in scripts, logs, or console outputs.
+The function also supports outputting the ASCII art with or without color to custom variables, allowing for
+further processing or storage of the generated ASCII art.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Convert-FSCPSTextToAscii -Text "Hello" -Font "Standard" -BorderType Asterisk -TextColor Yellow -BorderColor Green -DetailedInfo $true
+Convert-FSCPSTextToAscii -Text "Hello, World!" -Font "Standard" -BorderType Box -TextColor Yellow -BorderColor Blue -Timestamp
 ```
 
-Converts the text "Hello" into ASCII art using the "Standard" font, surrounds it with an asterisk border, and applies yellow text with a green border.
-Detailed information (timestamp and function name) is enabled.
+Converts the text "Hello, World!" into ASCII art using the "Standard" font, applies a box border, and uses yellow text with a blue border.
+A timestamp is included in the output.
+
+### EXAMPLE 2
+```
+Convert-FSCPSTextToAscii -Text "PowerShell" -Font "Big" -BorderType Asterisk -TextColor Cyan -BorderColor Green -OutputColorVariable "ColoredOutput" -OutputNoColorVariable "PlainOutput"
+```
+
+Converts the text "PowerShell" into ASCII art using the "Big" font, applies an asterisk border, and uses cyan text with a green border.
+The colored and plain outputs are stored in the variables \`ColoredOutput\` and \`PlainOutput\`, respectively.
 
 ## PARAMETERS
 
@@ -61,10 +71,9 @@ The font to be used for generating the ASCII art.
 This parameter is mandatory.
 
 ```yaml
-Type: FontType
+Type: String
 Parameter Sets: (All)
 Aliases:
-Accepted values: Acrobatic, Alligator, Alligator2, Alpha, Alphabet, Arrows, Avatar, B1FF, Banner, Banner3, Banner4, Barbwire, Basic, Bear, Bell, Benjamin, Big, Bigfig, Binary, Block, Blocks, Bloody, Bolger, Braced, Bright, Broadway, Bubble, Bulbhead, Caligraphy, Caligraphy2, Cards, Catwalk, Chiseled, Chunky, Coinstak, Cola, Colossal, Computer, Contessa, Contrast, Cosmike, Cosmike2, Crawford, Crawford2, Crazy, Cricket, Cursive, Cyberlarge, Cybermedium, Cybersmall, Cygnet, DANC4, Decimal, DiamFont, Diamond, Digital, Doh, Doom, Double, DWhistled, Electronic, Elite, Epic, Fender, Fraktur, Fuzzy, Georgi16, Georgia11, Ghost, Ghoulish, Glenyn, Goofy, Gothic, Graceful, Gradient, Graffiti, Greek, Hex, Hieroglyphs, Hollywood, Impossible, Invita, Isometric1, Isometric2, Isometric3, Isometric4, Italic, Ivrit, Jacky, Jazmine, Jerusalem, Katakana, Kban, Keyboard, Knob, Konto, LCD, Lean, Letters, Linux, Lockergnome, Madrid, Marquee, Maxfour, Merlin1, Merlin2, Mike, Mini, Mirror, Mnemonic, Modular, Morse, Morse2, Moscow, Mshebrew210, Muzzle, Nancyj, Nipples, NScript, O8, Octal, Ogre, OS2, Pagga, Pawp, Peaks, Pebbles, Pepper, Poison, Puffy, Puzzle, Pyramid, Rammstein, Rectangles, Relief, Relief2, Reverse, Roman, Rot13, Rotated, Rounded, Rozzo, RubiFont, Runic, Runyc, Script, Serifcap, Shadow, Shimrod, Short, Slant, Slide, Small, Soft, Speed, Spliff, Stacey, Stampate, Stampatello, Standard, Stellar, Stforek, Stop, Straight, Swan, Sweet, Tanja, Tengwar, Term, Test1, Thick, Thin, THIS, Thorned, Ticks, Tiles, Tombstone, Train, Trek, Tsalagi, Tubular, Twisted, Univers, Varsity, Wavy, Weird, Whimsy, Wow
 
 Required: True
 Position: 2
@@ -75,7 +84,7 @@ Accept wildcard characters: False
 
 ### -BorderType
 The type of border to apply around the ASCII art.
-This parameter is optional and defaults to 'None'.
+Defaults to \`None\`.
 
 ```yaml
 Type: BorderType
@@ -92,7 +101,7 @@ Accept wildcard characters: False
 
 ### -TextColor
 The color to use for the ASCII art text.
-This parameter is optional and defaults to 'White'.
+Defaults to \`White\`.
 
 ```yaml
 Type: String
@@ -108,7 +117,7 @@ Accept wildcard characters: False
 
 ### -BorderColor
 The color to use for the border.
-This parameter is optional and defaults to 'Gray'.
+Defaults to \`Gray\`.
 
 ```yaml
 Type: String
@@ -123,7 +132,7 @@ Accept wildcard characters: False
 ```
 
 ### -Timestamp
-Enables or disables detailed information (timestamp) in the output.
+A switch to include a timestamp in the output.
 Defaults to \`$false\`.
 
 ```yaml
@@ -134,6 +143,134 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -VerticalLayout
+Specifies the vertical layout type for the ASCII art.
+Defaults to \`Default\`.
+
+```yaml
+Type: LayoutType
+Parameter Sets: (All)
+Aliases:
+Accepted values: Default, Full, Fitted, ControlledSmushing, UniversalSmushing
+
+Required: False
+Position: 6
+Default value: Default
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -HorizontalLayout
+Specifies the horizontal layout type for the ASCII art.
+Defaults to \`Default\`.
+
+```yaml
+Type: LayoutType
+Parameter Sets: (All)
+Aliases:
+Accepted values: Default, Full, Fitted, ControlledSmushing, UniversalSmushing
+
+Required: False
+Position: 7
+Default value: Default
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ShowHardBlanks
+A switch to display hard blanks in the ASCII art.
+Defaults to \`$false\`.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhitespaceBreak
+A switch to enable breaking lines at whitespace.
+Defaults to \`$false\`.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ScreenWigth
+The maximum width of the screen for rendering the ASCII art.
+Defaults to \`100\`.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 8
+Default value: 100
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PrintDirection
+A switch to specify the print direction of the ASCII art.
+Defaults to left-to-right.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -OutputColorVariable
+The name of the variable to store the ASCII art with color formatting.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 9
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -OutputNoColorVariable
+The name of the variable to store the ASCII art without color formatting.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 10
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -161,6 +298,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+This function uses the PSFramework module for logging and configuration management.
+Ensure the PSFramework module
+is installed and imported before using this function.
+
 Author: Oleksandr Nikolaiev (@onikolaiev)
 
 ## RELATED LINKS

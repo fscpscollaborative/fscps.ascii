@@ -1,46 +1,47 @@
+
 <#
     .SYNOPSIS
         Calculates the maximum vertical smushing distance between two sets of text lines.
-
+        
     .DESCRIPTION
         This function determines the maximum number of overlapping lines (`curDist`) that can be vertically smushed
         between two sets of text lines (`lines1` and `lines2`) based on the smushing rules defined in the `opts` parameter.
         It evaluates each pair of overlapping lines using the `Can-VerticalSmush` function and adjusts the distance
         based on the results ("valid", "invalid", or "end").
-
+        
     .PARAMETER lines1
         An array of strings representing the first set of text lines.
-
+        
     .PARAMETER lines2
         An array of strings representing the second set of text lines.
-
+        
     .PARAMETER opts
         A hashtable containing smushing options, including:
         - `fittingRules.vLayout`: Specifies the vertical layout type (e.g., Full, Fitted, UniversalSmushing).
         - Additional smushing rules for evaluating line overlaps.
-
+        
     .EXAMPLE
         $lines1 = @(
-            "Hello",
-            "World"
+        "Hello",
+        "World"
         )
         $lines2 = @(
-            "Foo",
-            "Bar"
+        "Foo",
+        "Bar"
         )
         $opts = @{
-            fittingRules = @{
-                vLayout = [LayoutType]::UniversalSmushing
-            }
+        fittingRules = @{
+        vLayout = [LayoutType]::UniversalSmushing
+        }
         }
         $maxDist = Get-VerticalSmushDist -lines1 $lines1 -lines2 $lines2 -opts $opts
-
+        
         This example calculates the maximum vertical smushing distance between the two sets of text lines.
-
+        
     .NOTES
         This function relies on the `Can-VerticalSmush` helper function to evaluate individual line overlaps.
         The result is determined based on the smushing rules and the overlap validity.
-
+        
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Get-VerticalSmushDist {

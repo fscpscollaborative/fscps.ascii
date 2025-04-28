@@ -1,47 +1,48 @@
 <#
     .SYNOPSIS
-        Combines two sets of FIGlet text lines vertically with optional smushing.
+        Combines two sets of FIGlet text lines vertically with optional overlapping smushing.
 
     .DESCRIPTION
-        This function takes two sets of FIGlet text lines (`lines1` and `lines2`) and combines them vertically.
-        If an overlap is specified, the function applies vertical smushing rules to the overlapping lines.
-        The smushing behavior is determined by the options provided in the `opts` parameter.
+        The Smush-VerticalFigLines function takes two sets of FIGlet text lines (`output` and `lines`) and combines
+        them vertically. If the lengths of the lines in the two sets differ, the shorter set is padded with spaces
+        to match the length of the longer set. The function calculates the vertical smush distance using the provided
+        smushing options and applies vertical smushing rules to the overlapping lines. The resulting text is returned
+        as a single array of combined lines.
 
-    .PARAMETER lines1
+    .PARAMETER output
         An array of strings representing the first set of FIGlet text lines.
 
-    .PARAMETER lines2
+    .PARAMETER lines
         An array of strings representing the second set of FIGlet text lines.
 
-    .PARAMETER overlap
-        The number of overlapping lines to smush. If set to 0, no smushing is applied, and the lines are simply concatenated.
-
-    .PARAMETER opts
+    .PARAMETER options
         A hashtable containing options for vertical smushing, including:
         - `fittingRules.vLayout`: Specifies the vertical layout type (e.g., Full, Fitted, ControlledSmushing).
         - Additional smushing rules for evaluating overlaps.
 
     .EXAMPLE
-        $lines1 = @(
+        $output = @(
             "Hello",
             "World"
         )
-        $lines2 = @(
+        $lines = @(
             "Foo",
             "Bar"
         )
-        $opts = @{
+        $options = @{
             fittingRules = @{
                 vLayout = [LayoutType]::ControlledSmushing
             }
         }
-        $result = Vertical-Smush -lines1 $lines1 -lines2 $lines2 -overlap 2 -opts $opts
+        $result = Smush-VerticalFigLines -output $output -lines $lines -options $options
 
-        This example combines two sets of FIGlet text lines with 2 lines of overlap using ControlledSmushing rules.
+        This example combines two sets of FIGlet text lines using ControlledSmushing rules.
 
     .NOTES
-        This function relies on the `Can-VerticalSmush` helper function to evaluate individual line overlaps
-        and determine the smushing behavior.
+        This function relies on the following helper functions:
+        - `Pad-Lines`: Pads the shorter set of lines with spaces to match the length of the longer set.
+        - `Get-VerticalSmushDist`: Calculates the vertical smush distance between the two sets of lines.
+        - `Vertical-Smush`: Performs the actual vertical smushing of the two sets of lines.
 
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>

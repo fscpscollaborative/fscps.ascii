@@ -1,12 +1,13 @@
+
 <#
     .SYNOPSIS
         Retrieves the border symbols for a specified border type.
-
+        
     .DESCRIPTION
         This function returns a hashtable containing the symbols used for constructing borders
         based on the specified border type. The hashtable includes symbols for the corners,
         spacers, and edges of the border.
-
+        
     .PARAMETER BorderType
         The type of border to retrieve symbols for. Valid values are defined in the `BorderType` enum
         and include:
@@ -15,24 +16,24 @@
         - `Plus`
         - `Box`
         - `TwoLinesFrame`
-
+        
     .EXAMPLE
         $borderSymbols = Get-BorderSymbol -BorderType "Box"
-
+        
         This example retrieves the border symbols for the "Box" border type.
-
+        
     .EXAMPLE
         $borderSymbols = Get-BorderSymbol -BorderType "Asterisk"
-
+        
         This example retrieves the border symbols for the "Asterisk" border type.
-
+        
     .NOTES
         This function uses a switch statement to map the specified border type to its corresponding
         symbols. The returned hashtable includes the following keys:
         - `TopLeft`, `TopRight`, `BottomLeft`, `BottomRight`: Symbols for the corners.
         - `TopSpacer`, `BottomSpacer`: Symbols for the horizontal edges.
         - `LeftSpacer`, `RightSpacer`: Symbols for the vertical edges.
-
+        
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Get-BorderSymbol {

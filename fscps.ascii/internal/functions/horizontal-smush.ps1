@@ -1,28 +1,42 @@
 <#
     .SYNOPSIS
-        Performs horizontal smushing of two characters or strings based on specified smushing rules.
+        Combines two horizontal text blocks with optional overlapping smushing.
 
     .DESCRIPTION
-        This function evaluates two characters or strings (`ch1` and `ch2`) and applies horizontal smushing rules
-        to combine them into a single character or string. It supports multiple smushing layouts, including Fitted,
-        UniversalSmushing, and ControlledSmushing. For ControlledSmushing, specific smushing rules (`hRule1` to `hRule6`)
-        are applied in sequence until a valid smush is found.
+        The Horizontal-Smush function takes two horizontal text blocks (`textBlock1` and `textBlock2`) and combines
+        them into a single text block. If an overlap is specified, the function applies horizontal smushing rules
+        to the overlapping characters. The smushing behavior is determined by the options provided in the `opts`
+        parameter, including the horizontal layout type (`hLayout`) and specific smushing rules (`hRule1` to `hRule6`).
 
-    .PARAMETER ch1
-        The first character or string to be smushed.
+        The function processes each line of the text blocks, calculates the overlapping segments, and applies the
+        appropriate smushing rules to generate the combined output.
 
-    .PARAMETER ch2
-        The second character or string to be smushed.
+    .PARAMETER textBlock1
+        An array of strings representing the first horizontal text block.
+
+    .PARAMETER textBlock2
+        An array of strings representing the second horizontal text block.
+
+    .PARAMETER overlap
+        The number of overlapping characters to smush. If set to 0, no smushing is applied, and the text blocks
+        are concatenated.
 
     .PARAMETER opts
-        A hashtable containing smushing options, including:
+        A hashtable containing options for horizontal smushing, including:
         - `fittingRules.hLayout`: Specifies the horizontal layout type (e.g., Fitted, UniversalSmushing, ControlledSmushing).
         - `fittingRules.hRule1` to `hRule6`: Boolean flags indicating which smushing rules to apply.
         - `hardBlank`: The character used to represent hard blanks in FIGlet fonts.
+        - `height`: The number of rows in the text blocks.
 
     .EXAMPLE
-        $ch1 = "H"
-        $ch2 = "e"
+        $textBlock1 = @(
+            "Hello",
+            "World"
+        )
+        $textBlock2 = @(
+            "Foo",
+            "Bar"
+        )
         $opts = @{
             fittingRules = @{
                 hLayout = [LayoutType]::ControlledSmushing
@@ -34,18 +48,21 @@
                 hRule6 = $false
             }
             hardBlank = "@"
+            height = 2
         }
-        $result = Horizontal-Smush -ch1 $ch1 -ch2 $ch2 -opts $opts
+        $result = Horizontal-Smush -textBlock1 $textBlock1 -textBlock2 $textBlock2 -overlap 3 -opts $opts
 
-        This example smushes the characters "H" and "e" using ControlledSmushing with the specified smushing rules.
+        This example combines two horizontal text blocks with 3 characters of overlap using ControlledSmushing rules.
 
     .NOTES
-        This function relies on helper functions (`Uni-Smush`, `hRule1-Smush`, `hRule2-Smush`, etc.) to evaluate
-        individual smushing rules for character pairs.
+        This function relies on the following helper functions:
+        - `Uni-Smush`: Applies universal smushing rules to overlapping characters.
+        - `hRule1-Smush` to `hRule6-Smush`: Applies specific controlled smushing rules to overlapping characters.
 
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Horizontal-Smush {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseApprovedVerbs", "Create")]
     param (
         [string[]]$textBlock1,  # First text block
         [string[]]$textBlock2,  # Second text block

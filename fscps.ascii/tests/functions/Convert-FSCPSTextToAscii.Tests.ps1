@@ -27,7 +27,7 @@
 		It 'Should have the expected parameter Font' {
 			$parameter = (Get-Command Convert-FSCPSTextToAscii).Parameters['Font']
 			$parameter.Name | Should -Be 'Font'
-			$parameter.ParameterType.ToString() | Should -Be FontType
+			$parameter.ParameterType.ToString() | Should -Be System.String
 			$parameter.IsDynamic | Should -Be $False
 			$parameter.ParameterSets.Keys | Should -Be '__AllParameterSets'
 			$parameter.ParameterSets.Keys | Should -Contain '__AllParameterSets'
@@ -89,6 +89,110 @@
 			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipelineByPropertyName | Should -Be $False
 			$parameter.ParameterSets['__AllParameterSets'].ValueFromRemainingArguments | Should -Be $False
 		}
+		It 'Should have the expected parameter VerticalLayout' {
+			$parameter = (Get-Command Convert-FSCPSTextToAscii).Parameters['VerticalLayout']
+			$parameter.Name | Should -Be 'VerticalLayout'
+			$parameter.ParameterType.ToString() | Should -Be LayoutType
+			$parameter.IsDynamic | Should -Be $False
+			$parameter.ParameterSets.Keys | Should -Be '__AllParameterSets'
+			$parameter.ParameterSets.Keys | Should -Contain '__AllParameterSets'
+			$parameter.ParameterSets['__AllParameterSets'].IsMandatory | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].Position | Should -Be 5
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipeline | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipelineByPropertyName | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromRemainingArguments | Should -Be $False
+		}
+		It 'Should have the expected parameter HorizontalLayout' {
+			$parameter = (Get-Command Convert-FSCPSTextToAscii).Parameters['HorizontalLayout']
+			$parameter.Name | Should -Be 'HorizontalLayout'
+			$parameter.ParameterType.ToString() | Should -Be LayoutType
+			$parameter.IsDynamic | Should -Be $False
+			$parameter.ParameterSets.Keys | Should -Be '__AllParameterSets'
+			$parameter.ParameterSets.Keys | Should -Contain '__AllParameterSets'
+			$parameter.ParameterSets['__AllParameterSets'].IsMandatory | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].Position | Should -Be 6
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipeline | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipelineByPropertyName | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromRemainingArguments | Should -Be $False
+		}
+		It 'Should have the expected parameter ShowHardBlanks' {
+			$parameter = (Get-Command Convert-FSCPSTextToAscii).Parameters['ShowHardBlanks']
+			$parameter.Name | Should -Be 'ShowHardBlanks'
+			$parameter.ParameterType.ToString() | Should -Be System.Management.Automation.SwitchParameter
+			$parameter.IsDynamic | Should -Be $False
+			$parameter.ParameterSets.Keys | Should -Be '__AllParameterSets'
+			$parameter.ParameterSets.Keys | Should -Contain '__AllParameterSets'
+			$parameter.ParameterSets['__AllParameterSets'].IsMandatory | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].Position | Should -Be -2147483648
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipeline | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipelineByPropertyName | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromRemainingArguments | Should -Be $False
+		}
+		It 'Should have the expected parameter WhitespaceBreak' {
+			$parameter = (Get-Command Convert-FSCPSTextToAscii).Parameters['WhitespaceBreak']
+			$parameter.Name | Should -Be 'WhitespaceBreak'
+			$parameter.ParameterType.ToString() | Should -Be System.Management.Automation.SwitchParameter
+			$parameter.IsDynamic | Should -Be $False
+			$parameter.ParameterSets.Keys | Should -Be '__AllParameterSets'
+			$parameter.ParameterSets.Keys | Should -Contain '__AllParameterSets'
+			$parameter.ParameterSets['__AllParameterSets'].IsMandatory | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].Position | Should -Be -2147483648
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipeline | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipelineByPropertyName | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromRemainingArguments | Should -Be $False
+		}
+		It 'Should have the expected parameter ScreenWigth' {
+			$parameter = (Get-Command Convert-FSCPSTextToAscii).Parameters['ScreenWigth']
+			$parameter.Name | Should -Be 'ScreenWigth'
+			$parameter.ParameterType.ToString() | Should -Be System.Int32
+			$parameter.IsDynamic | Should -Be $False
+			$parameter.ParameterSets.Keys | Should -Be '__AllParameterSets'
+			$parameter.ParameterSets.Keys | Should -Contain '__AllParameterSets'
+			$parameter.ParameterSets['__AllParameterSets'].IsMandatory | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].Position | Should -Be 7
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipeline | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipelineByPropertyName | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromRemainingArguments | Should -Be $False
+		}
+		It 'Should have the expected parameter PrintDirection' {
+			$parameter = (Get-Command Convert-FSCPSTextToAscii).Parameters['PrintDirection']
+			$parameter.Name | Should -Be 'PrintDirection'
+			$parameter.ParameterType.ToString() | Should -Be System.Management.Automation.SwitchParameter
+			$parameter.IsDynamic | Should -Be $False
+			$parameter.ParameterSets.Keys | Should -Be '__AllParameterSets'
+			$parameter.ParameterSets.Keys | Should -Contain '__AllParameterSets'
+			$parameter.ParameterSets['__AllParameterSets'].IsMandatory | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].Position | Should -Be -2147483648
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipeline | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipelineByPropertyName | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromRemainingArguments | Should -Be $False
+		}
+		It 'Should have the expected parameter OutputColorVariable' {
+			$parameter = (Get-Command Convert-FSCPSTextToAscii).Parameters['OutputColorVariable']
+			$parameter.Name | Should -Be 'OutputColorVariable'
+			$parameter.ParameterType.ToString() | Should -Be System.String
+			$parameter.IsDynamic | Should -Be $False
+			$parameter.ParameterSets.Keys | Should -Be '__AllParameterSets'
+			$parameter.ParameterSets.Keys | Should -Contain '__AllParameterSets'
+			$parameter.ParameterSets['__AllParameterSets'].IsMandatory | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].Position | Should -Be 8
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipeline | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipelineByPropertyName | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromRemainingArguments | Should -Be $False
+		}
+		It 'Should have the expected parameter OutputNoColorVariable' {
+			$parameter = (Get-Command Convert-FSCPSTextToAscii).Parameters['OutputNoColorVariable']
+			$parameter.Name | Should -Be 'OutputNoColorVariable'
+			$parameter.ParameterType.ToString() | Should -Be System.String
+			$parameter.IsDynamic | Should -Be $False
+			$parameter.ParameterSets.Keys | Should -Be '__AllParameterSets'
+			$parameter.ParameterSets.Keys | Should -Contain '__AllParameterSets'
+			$parameter.ParameterSets['__AllParameterSets'].IsMandatory | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].Position | Should -Be 9
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipeline | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromPipelineByPropertyName | Should -Be $False
+			$parameter.ParameterSets['__AllParameterSets'].ValueFromRemainingArguments | Should -Be $False
+		}
 		It 'Should have the expected parameter ProgressAction' {
 			$parameter = (Get-Command Convert-FSCPSTextToAscii).Parameters['ProgressAction']
 			$parameter.Name | Should -Be 'ProgressAction'
@@ -107,7 +211,7 @@
 	Describe "Testing parameterset __AllParameterSets" {
 		<#
 		__AllParameterSets -Text -Font
-		__AllParameterSets -Text -Font -BorderType -TextColor -BorderColor -Timestamp -ProgressAction
+		__AllParameterSets -Text -Font -BorderType -TextColor -BorderColor -Timestamp -VerticalLayout -HorizontalLayout -ShowHardBlanks -WhitespaceBreak -ScreenWigth -PrintDirection -OutputColorVariable -OutputNoColorVariable -ProgressAction
 		#>
 	}
 
