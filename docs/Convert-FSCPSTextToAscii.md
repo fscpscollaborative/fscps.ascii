@@ -90,7 +90,7 @@ Defaults to \`None\`.
 Type: BorderType
 Parameter Sets: (All)
 Aliases:
-Accepted values: None, Asterisk, Hash, Box, TwoLinesFrame, BoxBorder, DoubleBox, DoubleCorners, BubbleBorder, Plus, Dots
+Accepted values: None, Asterisk, Hash, Box, TwoLinesFrame, BoxBorder, DoubleBox, DoubleCorners, BubbleBorder, Plus, Dots, DoubleDots
 
 Required: False
 Position: 3
