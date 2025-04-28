@@ -107,6 +107,12 @@ function Get-BorderSymbol {
                 TopSpacer = "."; BottomSpacer = "."; LeftSpacer = ":"; RightSpacer = ":"
             }
         }
+        'DoubleDots' { 
+            return @{
+                TopLeft = "::"; TopRight = "::"; BottomLeft = "::"; BottomRight = "::";
+                TopSpacer = ":"; BottomSpacer = ":"; LeftSpacer = "::"; RightSpacer = "::"
+            }
+        }
         'None' { 
             return @{
                 TopLeft = ""; TopRight = ""; BottomLeft = ""; BottomRight = "";

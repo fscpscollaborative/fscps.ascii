@@ -10,6 +10,7 @@
     BubbleBorder
     Plus
     Dots   
+    DoubleDots
 }
 
 enum LayoutType {
