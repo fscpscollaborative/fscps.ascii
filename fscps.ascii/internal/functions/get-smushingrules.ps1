@@ -1,3 +1,38 @@
+<#
+    .SYNOPSIS
+        Retrieves smushing rules for horizontal and vertical layouts based on the specified layout values.
+
+    .DESCRIPTION
+        This function calculates the smushing rules for both horizontal and vertical layouts based on the provided
+        `oldLayout` and `newLayout` values. It processes a predefined set of codes to determine the layout type
+        (e.g., Fitted, UniversalSmushing) and individual smushing rules (e.g., `hRule1`, `vRule5`). The resulting
+        rules are returned as a hashtable.
+
+    .PARAMETER oldLayout
+        The legacy layout value used to determine smushing rules if `newLayout` is not provided.
+
+    .PARAMETER newLayout
+        The updated layout value used to determine smushing rules. If provided, it takes precedence over `oldLayout`.
+
+    .EXAMPLE
+        $oldLayout = 2048
+        $newLayout = 8192
+        $rules = Get-SmushingRules -oldLayout $oldLayout -newLayout $newLayout
+
+        This example retrieves smushing rules based on the provided `oldLayout` and `newLayout` values.
+
+    .EXAMPLE
+        $oldLayout = 128
+        $rules = Get-SmushingRules -oldLayout $oldLayout
+
+        This example retrieves smushing rules using only the `oldLayout` value.
+
+    .NOTES
+        The function uses a predefined set of codes to map layout values to smushing rules. The resulting hashtable
+        includes keys such as `hLayout`, `vLayout`, `hRule1`, `vRule5`, and others.
+
+        Author: Oleksandr Nikolaiev (@onikolaiev)
+#>
 function Get-SmushingRules {
     param (
         [int]$oldLayout,

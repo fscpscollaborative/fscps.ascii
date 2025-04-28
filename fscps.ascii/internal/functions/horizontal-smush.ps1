@@ -1,4 +1,50 @@
+<#
+    .SYNOPSIS
+        Performs horizontal smushing of two characters or strings based on specified smushing rules.
 
+    .DESCRIPTION
+        This function evaluates two characters or strings (`ch1` and `ch2`) and applies horizontal smushing rules
+        to combine them into a single character or string. It supports multiple smushing layouts, including Fitted,
+        UniversalSmushing, and ControlledSmushing. For ControlledSmushing, specific smushing rules (`hRule1` to `hRule6`)
+        are applied in sequence until a valid smush is found.
+
+    .PARAMETER ch1
+        The first character or string to be smushed.
+
+    .PARAMETER ch2
+        The second character or string to be smushed.
+
+    .PARAMETER opts
+        A hashtable containing smushing options, including:
+        - `fittingRules.hLayout`: Specifies the horizontal layout type (e.g., Fitted, UniversalSmushing, ControlledSmushing).
+        - `fittingRules.hRule1` to `hRule6`: Boolean flags indicating which smushing rules to apply.
+        - `hardBlank`: The character used to represent hard blanks in FIGlet fonts.
+
+    .EXAMPLE
+        $ch1 = "H"
+        $ch2 = "e"
+        $opts = @{
+            fittingRules = @{
+                hLayout = [LayoutType]::ControlledSmushing
+                hRule1 = $true
+                hRule2 = $false
+                hRule3 = $true
+                hRule4 = $false
+                hRule5 = $true
+                hRule6 = $false
+            }
+            hardBlank = "@"
+        }
+        $result = Horizontal-Smush -ch1 $ch1 -ch2 $ch2 -opts $opts
+
+        This example smushes the characters "H" and "e" using ControlledSmushing with the specified smushing rules.
+
+    .NOTES
+        This function relies on helper functions (`Uni-Smush`, `hRule1-Smush`, `hRule2-Smush`, etc.) to evaluate
+        individual smushing rules for character pairs.
+
+        Author: Oleksandr Nikolaiev (@onikolaiev)
+#>
 function Horizontal-Smush {
     param (
         [string[]]$textBlock1,  # First text block

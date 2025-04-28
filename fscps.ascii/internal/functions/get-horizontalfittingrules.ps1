@@ -1,6 +1,46 @@
+<#
+    .SYNOPSIS
+        Retrieves the horizontal fitting rules for a specified layout type.
 
+    .DESCRIPTION
+        This function returns a hashtable containing the horizontal fitting rules based on the specified layout type.
+        It supports multiple layout types, such as Default, Full, Fitted, and ControlledSmushing. The function maps
+        the layout type to its corresponding fitting rules, including horizontal layout (`hLayout`) and individual
+        smushing rules (`hRule1` to `hRule6`).
 
-# Parsing and Generation methods
+    .PARAMETER layout
+        The layout type for which the horizontal fitting rules are retrieved. Valid values include:
+        - `[LayoutType]::Default`
+        - `[LayoutType]::Full`
+        - `[LayoutType]::Fitted`
+        - `[LayoutType]::ControlledSmushing`
+
+    .PARAMETER options
+        A hashtable containing the fitting rules for the Default layout. This parameter is used when the layout type
+        is `[LayoutType]::Default`.
+
+    .EXAMPLE
+        $layout = [LayoutType]::Default
+        $options = @{
+            fittingRules = @{
+                hLayout = [LayoutType]::Default
+                hRule1 = $true
+                hRule2 = $false
+                hRule3 = $true
+                hRule4 = $false
+                hRule5 = $true
+                hRule6 = $false
+            }
+        }
+        $rules = Get-HorizontalFittingRules -layout $layout -options $options
+
+        This example retrieves the horizontal fitting rules for the Default layout type using the specified options.
+
+    .NOTES
+        This function assumes the existence of a `[LayoutType]` enum or equivalent structure to define valid layout types.
+
+        Author: Oleksandr Nikolaiev (@onikolaiev)
+#>
 function Get-HorizontalFittingRules {
     param (
         [string]$layout,       # Layout type (e.g., [LayoutType]::Default, [LayoutType]::Full, etc.)

@@ -1,5 +1,34 @@
 
+<#
+    .SYNOPSIS
+        Parses data from a FIGlet font file and stores it in the global FIGlet fonts hashtable.
 
+    .DESCRIPTION
+        This function processes the raw data of a FIGlet font file, normalizes its line endings, and extracts
+        metadata such as height, baseline, layout, and smushing rules. The parsed font data is stored in the
+        global `$Script:FigFonts` hashtable under the specified font name. It also validates the header data
+        to ensure the font file is correctly formatted.
+
+    .PARAMETER FontName
+        The name of the FIGlet font being parsed. This is used as the key in the `$Script:FigFonts` hashtable.
+
+    .PARAMETER FontData
+        The raw data of the FIGlet font file as a string. This data is parsed to extract font metadata and options.
+
+    .EXAMPLE
+        $FontName = "Standard"
+        $FontData = Get-Content -Path "C:\Fonts\Standard.flf" -Raw
+        Parse-Font -FontName $FontName -FontData $FontData
+
+        This example parses the "Standard" FIGlet font file and stores its metadata and options in the global
+        `$Script:FigFonts` hashtable.
+
+    .NOTES
+        This function relies on the `Get-SmushingRules` helper function to calculate smushing rules based on
+        the font's layout values. It validates the header data to ensure the font file is properly formatted.
+
+        Author: Oleksandr Nikolaiev (@onikolaiev)
+#>
 function Parse-Font {
     param (
         [string]$FontName, # Name of the font

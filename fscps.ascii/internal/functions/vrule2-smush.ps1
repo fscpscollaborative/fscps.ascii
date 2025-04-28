@@ -1,7 +1,44 @@
+<#
+    .SYNOPSIS
+        Applies Rule 2: Underscore Smushing for vertical smushing.
 
+    .DESCRIPTION
+        This function smushes an underscore (`_`) with specific characters (`|`, `/`, `\`, `[`, `]`, `{`, `}`, `(`, `)`, `<`, `>`)
+        according to Rule 2 of the FIGlet vertical smushing rules. If one of the characters is an underscore and the other
+        is in the allowed set, the underscore is replaced by the other character.
 
-# Rule 2: UNDERSCORE SMUSHING (code value 512)
-# Same as horizontal smushing rule 2.
+    .PARAMETER ch1
+        The first character to evaluate for vertical smushing.
+
+    .PARAMETER ch2
+        The second character to evaluate for vertical smushing.
+
+    .EXAMPLE
+        $ch1 = "_"
+        $ch2 = "|"
+        $result = vRule2-Smush -ch1 $ch1 -ch2 $ch2
+
+        This example smushes the underscore (`_`) with the pipe (`|`) and returns `|`.
+
+    .EXAMPLE
+        $ch1 = "/"
+        $ch2 = "_"
+        $result = vRule2-Smush -ch1 $ch1 -ch2 $ch2
+
+        This example smushes the underscore (`_`) with the forward slash (`/`) and returns `/`.
+
+    .EXAMPLE
+        $ch1 = "_"
+        $ch2 = "A"
+        $result = vRule2-Smush -ch1 $ch1 -ch2 $ch2
+
+        This example does not smush the underscore (`_`) with the character `A` and returns `$false`.
+
+    .NOTES
+        This function implements Rule 2 of the FIGlet vertical smushing rules: Underscore Smushing.
+
+        Author: Oleksandr Nikolaiev (@onikolaiev)
+#>
 function vRule2-Smush {
     param (
         [string]$ch1,

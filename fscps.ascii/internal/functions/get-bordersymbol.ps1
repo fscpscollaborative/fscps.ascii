@@ -1,36 +1,39 @@
-
 <#
     .SYNOPSIS
         Retrieves the border symbols for a specified border type.
-        
+
     .DESCRIPTION
-        The Get-BorderSymbol function returns a hashtable containing the symbols used for the top-left, top-right, bottom-left, bottom-right corners,
-        as well as the spacers for the top, bottom, left, and right sides of a border. The border type is specified using the BorderType enum.
-        
+        This function returns a hashtable containing the symbols used for constructing borders
+        based on the specified border type. The hashtable includes symbols for the corners,
+        spacers, and edges of the border.
+
     .PARAMETER BorderType
-        Specifies the type of border for which to retrieve the symbols. The parameter is mandatory and must be a valid value from the BorderType enum.
-        
-    .OUTPUTS
-        System.Collections.Hashtable
-        A hashtable containing the border symbols.
-        
+        The type of border to retrieve symbols for. Valid values are defined in the `BorderType` enum
+        and include:
+        - `Asterisk`
+        - `Hash`
+        - `Plus`
+        - `Box`
+        - `TwoLinesFrame`
+
     .EXAMPLE
-        PS C:\> Get-BorderSymbol -BorderType Box
-        
-        Returns the border symbols for the "Box" border type.
-        
+        $borderSymbols = Get-BorderSymbol -BorderType "Box"
+
+        This example retrieves the border symbols for the "Box" border type.
+
     .EXAMPLE
-        PS C:\> Get-BorderSymbol -BorderType Asterisk
-        
-        Returns the border symbols for the "Asterisk" border type.
-        
-    .EXAMPLE
-        PS C:\> Get-BorderSymbol -BorderType DoubleBox
-        
-        Returns the border symbols for the "DoubleBox" border type.
-        
+        $borderSymbols = Get-BorderSymbol -BorderType "Asterisk"
+
+        This example retrieves the border symbols for the "Asterisk" border type.
+
     .NOTES
-        The function uses the BorderType enum for input validation, ensuring only valid border types are accepted.
+        This function uses a switch statement to map the specified border type to its corresponding
+        symbols. The returned hashtable includes the following keys:
+        - `TopLeft`, `TopRight`, `BottomLeft`, `BottomRight`: Symbols for the corners.
+        - `TopSpacer`, `BottomSpacer`: Symbols for the horizontal edges.
+        - `LeftSpacer`, `RightSpacer`: Symbols for the vertical edges.
+
+        Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Get-BorderSymbol {
     [CmdletBinding()]

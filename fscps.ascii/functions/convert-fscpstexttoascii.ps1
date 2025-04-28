@@ -1,40 +1,73 @@
 
 <#
     .SYNOPSIS
-        Converts a given text to ASCII art using a specified font and optional border style with color support.
-        
+        Converts a given text into ASCII art using a specified font and customizable options.
+
     .DESCRIPTION
-        The Convert-FSCPSTextToAscii function takes a string input and converts it into ASCII art using the specified font.
-        Optionally, a border style and colors for the text and border can be applied. The function supports various fonts
-        and border styles, allowing for customization of the output. The text and border colors can also be specified
-        to enhance the visual appearance of the ASCII art.
-        
-        This function is ideal for creating visually appealing text banners or decorations in scripts, logs, or console outputs.
-        
+        The Convert-FSCPSTextToAscii function generates ASCII art from the provided text using the specified font.
+        It supports optional customization, including border styles, text and border colors, layout types, and additional
+        formatting options such as showing hard blanks or breaking lines at whitespace. The function is highly configurable
+        and can be used to create visually appealing text banners or decorations for console outputs.
+
+        The function also supports outputting the ASCII art with or without color to custom variables, allowing for
+        further processing or storage of the generated ASCII art.
+
     .PARAMETER Text
         The text to be converted into ASCII art. This parameter is mandatory.
-        
+
     .PARAMETER Font
         The font to be used for generating the ASCII art. This parameter is mandatory.
-        
+
     .PARAMETER BorderType
-        The type of border to apply around the ASCII art. This parameter is optional and defaults to 'None'.
-        
+        The type of border to apply around the ASCII art. Defaults to `None`.
+
     .PARAMETER TextColor
-        The color to use for the ASCII art text. This parameter is optional and defaults to 'White'.
-        
+        The color to use for the ASCII art text. Defaults to `White`.
+
     .PARAMETER BorderColor
-        The color to use for the border. This parameter is optional and defaults to 'Gray'.
-        
+        The color to use for the border. Defaults to `Gray`.
+
     .PARAMETER Timestamp
-        Enables or disables detailed information (timestamp) in the output. Defaults to `$false`.
-        
+        A switch to include a timestamp in the output. Defaults to `$false`.
+
+    .PARAMETER VerticalLayout
+        Specifies the vertical layout type for the ASCII art. Defaults to `Default`.
+
+    .PARAMETER HorizontalLayout
+        Specifies the horizontal layout type for the ASCII art. Defaults to `Default`.
+
+    .PARAMETER ShowHardBlanks
+        A switch to display hard blanks in the ASCII art. Defaults to `$false`.
+
+    .PARAMETER WhitespaceBreak
+        A switch to enable breaking lines at whitespace. Defaults to `$false`.
+
+    .PARAMETER ScreenWigth
+        The maximum width of the screen for rendering the ASCII art. Defaults to `100`.
+
+    .PARAMETER PrintDirection
+        A switch to specify the print direction of the ASCII art. Defaults to left-to-right.
+
+    .PARAMETER OutputColorVariable
+        The name of the variable to store the ASCII art with color formatting.
+
+    .PARAMETER OutputNoColorVariable
+        The name of the variable to store the ASCII art without color formatting.
+
     .EXAMPLE
-        PS C:\> Convert-FSCPSTextToAscii -Text "Hello" -Font "Standard" -BorderType Asterisk -TextColor Yellow -BorderColor Green -DetailedInfo $true
-        
-        Converts the text "Hello" into ASCII art using the "Standard" font, surrounds it with an asterisk border, and applies yellow text with a green border. Detailed information (timestamp and function name) is enabled.
+        PS C:\> Convert-FSCPSTextToAscii -Text "Hello, World!" -Font "Standard" -BorderType Box -TextColor Yellow -BorderColor Blue -Timestamp
+
+        Converts the text "Hello, World!" into ASCII art using the "Standard" font, applies a box border, and uses yellow text with a blue border. A timestamp is included in the output.
+
+    .EXAMPLE
+        PS C:\> Convert-FSCPSTextToAscii -Text "PowerShell" -Font "Big" -BorderType Asterisk -TextColor Cyan -BorderColor Green -OutputColorVariable "ColoredOutput" -OutputNoColorVariable "PlainOutput"
+
+        Converts the text "PowerShell" into ASCII art using the "Big" font, applies an asterisk border, and uses cyan text with a green border. The colored and plain outputs are stored in the variables `ColoredOutput` and `PlainOutput`, respectively.
+
     .NOTES
-        
+        This function uses the PSFramework module for logging and configuration management. Ensure the PSFramework module
+        is installed and imported before using this function.
+
         Author: Oleksandr Nikolaiev (@onikolaiev)
 #>
 function Convert-FSCPSTextToAscii {
@@ -66,6 +99,7 @@ function Convert-FSCPSTextToAscii {
 
         [Parameter(Mandatory=$false)]
         [LayoutType]$HorizontalLayout = [LayoutType]::Default,
+
         [Parameter(Mandatory=$false)]
         [switch]$ShowHardBlanks,
 

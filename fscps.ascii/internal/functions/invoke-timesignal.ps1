@@ -1,36 +1,39 @@
-
 <#
     .SYNOPSIS
-        Handle time measurement
-        
+        Measures the execution time of a command or function by marking its start and end points.
+
     .DESCRIPTION
-        Handle time measurement from when a cmdlet / function starts and ends
-        
-        Will write the output to the verbose stream (Write-PSFMessage -Level Verbose)
-        
+        The Invoke-TimeSignal function is used to measure the time spent executing a specific command or function.
+        It works by marking the start and end points of the execution and calculating the time difference between them.
+        The function uses a global hashtable `$Script:TimeSignals` to store the start time for each command or function.
+
+        When the `-Start` parameter is used, the function records the current time for the specified command or function.
+        If the command is already being tracked, the start time is updated. When the `-End` parameter is used, the function
+        calculates the elapsed time since the start and logs the result. If the command was not started, a message is logged.
+
     .PARAMETER Start
-        Switch to instruct the cmdlet that a start time registration needs to take place
-        
+        Marks the start of the time measurement for the current command or function.
+
     .PARAMETER End
-        Switch to instruct the cmdlet that a time registration has come to its end and it needs to do the calculation
-        
+        Marks the end of the time measurement for the current command or function and calculates the elapsed time.
+
     .EXAMPLE
-        PS C:\> Invoke-TimeSignal -Start
-        
-        This will start the time measurement for any given cmdlet / function
-        
+        Invoke-TimeSignal -Start
+
+        This example marks the start of the time measurement for the current command or function.
+
     .EXAMPLE
-        PS C:\> Invoke-TimeSignal -End
-        
-        This will end the time measurement for any given cmdlet / function.
-        The output will go into the verbose stream.
-        
+        Invoke-TimeSignal -End
+
+        This example marks the end of the time measurement for the current command or function and logs the elapsed time.
+
     .NOTES
-        This is refactored function from d365fo.tools
-        
-        Original Author: Mötz Jensen (@Splaxi)
+        This function uses the PSFramework module for logging and message handling. Ensure the PSFramework module
+        is installed and imported before using this function.
+
+        The function relies on a global hashtable `$Script:TimeSignals` to track the start times of commands or functions.
+
         Author: Oleksandr Nikolaiev (@onikolaiev)
-        
 #>
 function Invoke-TimeSignal {
     [CmdletBinding(DefaultParameterSetName = 'Start')]

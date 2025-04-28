@@ -1,4 +1,43 @@
+<#
+    .SYNOPSIS
+        Calculates the horizontal smushing distance between two text strings based on the specified smushing rules.
 
+    .DESCRIPTION
+        This function determines the maximum horizontal smushing distance between two text strings (`txt1` and `txt2`)
+        according to the smushing rules defined in the `opts.fittingRules` parameter. It evaluates character overlaps
+        and applies specific smushing rules, such as Full, Fitted, and UniversalSmushing, to calculate the distance.
+
+    .PARAMETER txt1
+        The first text string to evaluate for horizontal smushing.
+
+    .PARAMETER txt2
+        The second text string to evaluate for horizontal smushing.
+
+    .PARAMETER opts
+        A hashtable containing smushing options, including:
+        - `fittingRules.hLayout`: Specifies the horizontal layout type (e.g., Full, Fitted, UniversalSmushing).
+        - `hardBlank`: The character used to represent hard blanks in FIGlet fonts.
+
+    .EXAMPLE
+        $txt1 = "Hello"
+        $txt2 = "World"
+        $opts = @{
+            fittingRules = @{
+                hLayout = [LayoutType]::UniversalSmushing
+            }
+            hardBlank = "@"
+        }
+        $smushLength = Get-HorizontalSmushLength -txt1 $txt1 -txt2 $txt2 -opts $opts
+
+        This example calculates the horizontal smushing distance between the strings "Hello" and "World" using
+        the UniversalSmushing layout type.
+
+    .NOTES
+        This function assumes the existence of a `[LayoutType]` enum or equivalent structure to define valid layout types.
+        It also relies on the `hardBlank` option to handle special cases for smushing.
+
+        Author: Oleksandr Nikolaiev (@onikolaiev)
+#>
 function Get-HorizontalSmushLength {
     param (
         [string]$txt1,          # First text string

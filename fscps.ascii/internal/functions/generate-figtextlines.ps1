@@ -1,6 +1,62 @@
 
 
+<#
+    .SYNOPSIS
+        Generates FIGlet text lines from input text using specified FIGlet characters and options.
 
+    .DESCRIPTION
+        This function processes input text and converts it into FIGlet text lines using the provided FIGlet character
+        definitions (`figChars`) and options (`opts`). It handles whitespace, character smushing, and layout rules
+        to produce the final FIGlet text output.
+
+    .PARAMETER txt
+        The input text to be converted into FIGlet text lines.
+
+    .PARAMETER figChars
+        A hashtable containing the FIGlet character definitions. Each character maps to its FIGlet representation.
+
+    .PARAMETER opts
+        A hashtable containing options for generating FIGlet text, including:
+        - `height`: The height of the FIGlet characters.
+        - `width`: The maximum width of the output text.
+        - `whitespaceBreak`: A flag indicating whether to break lines at whitespace.
+        - `printDirection`: The direction in which the text is printed (e.g., left-to-right or right-to-left).
+        - `fittingRules.hLayout`: Specifies the horizontal layout type (e.g., Full, Fitted, ControlledSmushing).
+
+    .EXAMPLE
+        $txt = "Hello, World!"
+        $figChars = @{
+            72 = @("H", "H")
+            101 = @("e", "e")
+            108 = @("l", "l")
+            111 = @("o", "o")
+            44 = @(",", ",")
+            32 = @(" ", " ")
+            87 = @("W", "W")
+            114 = @("r", "r")
+            100 = @("d", "d")
+            33 = @("!", "!")
+        }
+        $opts = @{
+            height = 8
+            width = 80
+            whitespaceBreak = $true
+            printDirection = 0
+            fittingRules = @{
+                hLayout = [LayoutType]::ControlledSmushing
+            }
+        }
+        $result = Generate-FigTextLines -txt $txt -figChars $figChars -opts $opts
+
+        This example generates FIGlet text lines for the input "Hello, World!" using the specified FIGlet characters
+        and options.
+
+    .NOTES
+        This function assumes the existence of helper functions such as `New-FigChar` for creating FIGlet characters
+        and `Join-FigArray` for combining FIGlet text lines.
+
+        Author: Oleksandr Nikolaiev (@onikolaiev)
+#>
 function Generate-FigTextLines {
     param (
         [string]$txt,          # Input text

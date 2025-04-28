@@ -1,5 +1,46 @@
 
+<#
+    .SYNOPSIS
+        Retrieves vertical fitting rules for a specified layout type.
 
+    .DESCRIPTION
+        This function returns a hashtable containing the vertical fitting rules based on the specified layout type.
+        It supports multiple layout types, such as Default, Full, Fitted, and ControlledSmushing. The function maps
+        the layout type to its corresponding fitting rules, including vertical layout (`vLayout`) and individual
+        smushing rules (`vRule1` to `vRule5`).
+
+    .PARAMETER layout
+        The layout type for which the vertical fitting rules are retrieved. Valid values include:
+        - `[LayoutType]::Default`
+        - `[LayoutType]::Full`
+        - `[LayoutType]::Fitted`
+        - `[LayoutType]::ControlledSmushing`
+
+    .PARAMETER options
+        A hashtable containing the fitting rules for the Default layout. This parameter is used when the layout type
+        is `[LayoutType]::Default`.
+
+    .EXAMPLE
+        $layout = [LayoutType]::Default
+        $options = @{
+            fittingRules = @{
+                vLayout = [LayoutType]::Default
+                vRule1 = $true
+                vRule2 = $false
+                vRule3 = $true
+                vRule4 = $false
+                vRule5 = $true
+            }
+        }
+        $rules = Get-VerticalFittingRules -layout $layout -options $options
+
+        This example retrieves the vertical fitting rules for the Default layout type using the specified options.
+
+    .NOTES
+        This function assumes the existence of a `[LayoutType]` enum or equivalent structure to define valid layout types.
+
+        Author: Oleksandr Nikolaiev (@onikolaiev)
+#>
 function Get-VerticalFittingRules {
     param (
         [string]$layout,       # Layout type (e.g., [LayoutType]::Default, [LayoutType]::Full, etc.)

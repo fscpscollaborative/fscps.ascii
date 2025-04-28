@@ -1,5 +1,47 @@
 
+<#
+    .SYNOPSIS
+        Determines if two lines of text can be vertically smushed based on the specified smushing rules.
 
+    .DESCRIPTION
+        This function evaluates whether two lines of text (`txt1` and `txt2`) can be vertically smushed together
+        according to the vertical smushing rules defined in the `opts.fittingRules` parameter. It iterates through
+        each character in the lines and applies the appropriate smushing rules to determine if the lines can be
+        combined. The function returns whether the smushing is valid, invalid, or has ended.
+
+    .PARAMETER txt1
+        The first line of text to evaluate for vertical smushing.
+
+    .PARAMETER txt2
+        The second line of text to evaluate for vertical smushing.
+
+    .PARAMETER opts
+        A hashtable containing the smushing options, including:
+        - `fittingRules.vLayout`: Specifies the vertical layout type (e.g., Full, Fitted, UniversalSmushing).
+        - `fittingRules.vRule1` to `vRule4`: Boolean flags indicating which smushing rules to apply.
+
+    .EXAMPLE
+        $txt1 = "Hello"
+        $txt2 = "World"
+        $opts = @{
+            fittingRules = @{
+                vLayout = [LayoutType]::UniversalSmushing
+                vRule1 = $true
+                vRule2 = $false
+                vRule3 = $true
+                vRule4 = $false
+            }
+        }
+        $result = Can-VerticalSmush -txt1 $txt1 -txt2 $txt2 -opts $opts
+
+        This example checks if the lines "Hello" and "World" can be vertically smushed using the specified smushing rules.
+
+    .NOTES
+        This function relies on helper functions (`vRule1-Smush`, `vRule2-Smush`, `vRule3-Smush`, `vRule4-Smush`, and `vRule5-Smush`)
+        to evaluate individual smushing rules for character pairs.
+
+        Author: Oleksandr Nikolaiev (@onikolaiev)
+#>
 function Can-VerticalSmush {
     param (
         [string]$txt1,  # A line of text
