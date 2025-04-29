@@ -44,6 +44,9 @@
         
     .PARAMETER ScreenWigth
         The maximum width of the screen for rendering the ASCII art. Defaults to `100`.
+
+    .PARAMETER Padding
+        The padding to apply to the ASCII art. Defaults to `0`.
         
     .PARAMETER PrintDirection
         A switch to specify the print direction of the ASCII art. Defaults to left-to-right.
@@ -110,6 +113,9 @@ function Convert-FSCPSTextToAscii {
         [int]$ScreenWigth = 100,
 
         [Parameter(Mandatory=$false)]
+        [int]$Padding = 0,
+
+        [Parameter(Mandatory=$false)]
         [switch]$PrintDirection,
 
         [Parameter(Mandatory=$false)]
@@ -146,7 +152,6 @@ function Convert-FSCPSTextToAscii {
     }
     PROCESS {
 
-
         $options = @{
             font ="$Font"
             showHardBlanks = $ShowHardBlanks
@@ -163,7 +168,13 @@ function Convert-FSCPSTextToAscii {
         $null = (Get-FontMetadata -fontName $Font) 
         $arrayLines = (Text-Sync -txt $Text -options $options)
         foreach ($line in $arrayLines) {
-            $outputLines.Add($line.TrimEnd())
+            
+            #$outputLines.Add($line.TrimEnd())
+            if ($Padding -gt 0) {
+                $outputLines.Add((" " * $Padding) + $line  + (" " * $Padding))
+            } else {
+                $outputLines.Add($line)
+            }
         }
         $outputLines = $outputLines -split "`n"
 
@@ -209,7 +220,11 @@ function Convert-FSCPSTextToAscii {
         else {
             # Draw lines without borders
             foreach ($line in $outputLines) {
-                Write-PSFMessage -Level Host -Message  ('<c="'+$TextColor.ToLower()+'">' + $line + "</c>") 
+                if ($Padding -gt 0) {
+                    Write-PSFMessage -Level Host -Message  (" " * $Padding) + ('<c="'+$TextColor.ToLower()+'">' + $line + "</c>") + (" " * $Padding)
+                } else {
+                    Write-PSFMessage -Level Host -Message  ('<c="'+$TextColor.ToLower()+'">' + $line + "</c>")
+                }
             }
         }    
         # If the custom output variable is provided, set its value
