@@ -138,6 +138,12 @@ The `Convert-FSCPSTextToAscii` function is a PowerShell utility that converts a 
 - **Required**: No
 - **Default Value**: `100`
 
+#### `-Padding`
+- **Description**: The padding to apply to the ASCII art. Defaults to `0`. 
+- **Type**: `int`
+- **Required**: No
+- **Default Value**: `0`     
+
 #### `-PrintDirection`
 - **Description**: A switch to specify the print direction of the ASCII art.
 - **Type**: `switch`
