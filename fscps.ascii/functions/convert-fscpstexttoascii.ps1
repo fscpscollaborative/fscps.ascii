@@ -128,8 +128,7 @@ function Convert-FSCPSTextToAscii {
     begin {
         Invoke-TimeSignal -Start
         # Save the current state of the PSFramework message style settings
-        $originalTimestampSetting = (Get-PSFConfig -Module PSFramework -Name 'Message.Style.Timestamp').Value
-        
+        $originalTimestampSetting = (Get-PSFConfig -Module PSFramework -Name 'Message.Style.Timestamp').Value        
         $originalFunctionNameSetting = (Get-PSFConfig -Module PSFramework -Name 'Message.Style.FunctionName').Value
 
         # Apply the detailed info setting
@@ -174,7 +173,6 @@ function Convert-FSCPSTextToAscii {
 
         # Determine max line length
         $maxLen = ($outputLines | ForEach-Object { $_.Length } | Measure-Object -Maximum).Maximum
-        Write-Host $maxLen
         # Calculate the total width of the content including side borders
         $totalWidth = $maxLen
         if ($BorderType -ne [BorderType]::None) {
