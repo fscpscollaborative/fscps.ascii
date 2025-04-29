@@ -44,7 +44,7 @@
         
     .PARAMETER ScreenWigth
         The maximum width of the screen for rendering the ASCII art. Defaults to `100`.
-
+        
     .PARAMETER Padding
         The padding to apply to the ASCII art. Defaults to `0`.
         
@@ -167,20 +167,14 @@ function Convert-FSCPSTextToAscii {
         $resultNoColorLines = New-Object System.Collections.Generic.List[string]
         $null = (Get-FontMetadata -fontName $Font) 
         $arrayLines = (Text-Sync -txt $Text -options $options)
-        foreach ($line in $arrayLines) {
-            
-            #$outputLines.Add($line.TrimEnd())
-            if ($Padding -gt 0) {
-                $outputLines.Add((" " * $Padding) + $line  + (" " * $Padding))
-            } else {
-                $outputLines.Add($line)
-            }
+        foreach ($line in $arrayLines -split "`n") {
+                $outputLines.Add(((' ' * $Padding) + $line + (' ' * $Padding)))
         }
         $outputLines = $outputLines -split "`n"
 
         # Determine max line length
         $maxLen = ($outputLines | ForEach-Object { $_.Length } | Measure-Object -Maximum).Maximum
-        
+        Write-Host $maxLen
         # Calculate the total width of the content including side borders
         $totalWidth = $maxLen
         if ($BorderType -ne [BorderType]::None) {
@@ -220,11 +214,7 @@ function Convert-FSCPSTextToAscii {
         else {
             # Draw lines without borders
             foreach ($line in $outputLines) {
-                if ($Padding -gt 0) {
-                    Write-PSFMessage -Level Host -Message  (" " * $Padding) + ('<c="'+$TextColor.ToLower()+'">' + $line + "</c>") + (" " * $Padding)
-                } else {
-                    Write-PSFMessage -Level Host -Message  ('<c="'+$TextColor.ToLower()+'">' + $line + "</c>")
-                }
+                Write-PSFMessage -Level Host -Message  (('<c="'+$TextColor.ToLower()+'">' + $line + "</c>"))
             }
         }    
         # If the custom output variable is provided, set its value

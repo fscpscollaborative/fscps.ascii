@@ -15,7 +15,7 @@ Converts a given text into ASCII art using a specified font and customizable opt
 ```
 Convert-FSCPSTextToAscii [-Text] <String> [-Font] <String> [[-BorderType] <BorderType>] [[-TextColor] <String>]
  [[-BorderColor] <String>] [-Timestamp] [[-VerticalLayout] <LayoutType>] [[-HorizontalLayout] <LayoutType>]
- [-ShowHardBlanks] [-WhitespaceBreak] [[-ScreenWigth] <Int32>] [-PrintDirection]
+ [-ShowHardBlanks] [-WhitespaceBreak] [[-ScreenWigth] <Int32>] [[-Padding] <Int32>] [-PrintDirection]
  [[-OutputColorVariable] <String>] [[-OutputNoColorVariable] <String>] [-ProgressAction <ActionPreference>]
  [<CommonParameters>]
 ```
@@ -229,6 +229,22 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Padding
+The padding to apply to the ASCII art.
+Defaults to \`0\`.
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 9
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -PrintDirection
 A switch to specify the print direction of the ASCII art.
 Defaults to left-to-right.
@@ -254,7 +270,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 9
+Position: 10
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -269,7 +285,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 10
+Position: 11
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
