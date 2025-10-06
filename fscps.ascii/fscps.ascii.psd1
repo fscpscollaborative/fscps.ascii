@@ -24,7 +24,7 @@ GUID = '1dda8cec-ccbd-48e0-9591-daf7f8b5adb3'
 Author = 'Oleksandr Nikolaiev (@onikolaiev)'
 
 # Company or vendor of this module
-CompanyName = 'Ciellos INC.'
+CompanyName = 'Oleksandr Nikolaiev (@onikolaiev)'
 
 # Copyright statement for this module
 Copyright = '2025 (c) Oleksandr Nikolaiev. All rights reserved.'
